@@ -1,7 +1,0 @@
-{
-  "name": "SchoolHealthApp",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular"
-}
