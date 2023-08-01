@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  postgres:
+    build:
+      context: ./postgresql/
+    #image: 012497031491.dkr.ecr.us-east-1.amazonaws.com/postgres-image:latest
+    image: postgres-image
+    container_name: your-postgres-container
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+  app:
+    build:
+      context: ./
+    #image: 012497031491.dkr.ecr.us-east-1.amazonaws.com/spring-app-image:latest
+    image: spring-app-image
+    container_name: your-spring-app-container
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/rungroopcourse
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=1049
+volumes:
+  postgres-data:
